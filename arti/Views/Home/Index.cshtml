@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<section class="filter">
+    <span class="filter-title main-gradient">Filters:</span>
+    <ul class="ul-inline">
+        <li class="active"><a href="#" data-filter="recent">Recently Added</a></li>
+        <li><a href="#" data-filter="popular">Popularity</a></li>
+        <li><a href="#" data-filter="featured">Featured</a></li>
+        <li><a href="#" data-filter="favorites">Favorites</a></li>
+    </ul>
+</section>
+<section class="gallery clearfix">
+    <div class="grid clearfix">
+        @Html.Partial("artifact-grid")
+    </div>
+    @{
+        var classes = ViewBag.total > 8 ? "no-prev" : "no-prev no-next";
+    }
+    <nav class="@classes" data-total="@ViewBag.total">
+        <button class="button button-black button-back lfloat">Prev</button>
+        <button class="button button-blue button-fwd rfloat">Next</button>
+    </nav>
+</section>

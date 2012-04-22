@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<!--[if lt IE 7]><html lang="en" class="no-js lt-ie9 lt-ie8 lt-ie7"></html><![endif]-->
+<!--[if IE 7]><html lang="en" class="no-js lt-ie9 lt-ie8"></html><![endif]-->
+<!--[if IE 8]><html lang="en" class="no-js lt-ie9"></html><![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<head>
+    @Html.Partial("Head")
+</head>
+<body>
+    <div id="container">
+        <div id="wrap">
+            @Html.Partial("Header")
+            <div id="main" role="main">
+                @RenderBody()
+            </div>
+        </div>
+        @Html.Partial("Footer")
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="@Url.Content("~/Scripts/Libs/jquery-1.7.2.min.js")"><\\/script>')</script>
+        
+    <script src="@Url.Content("~/Scripts/Libs/processing-1.3.6.min.js")"></script>
+    <!--script(src='http://cloud.github.com/downloads/processing-js/processing-js/processing-1.3.6.js')-->
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+    <script defer src="@Url.Content("~/Scripts/plugins.js")"></script>
+    <script defer src="@Url.Content("~/Scripts/script.js")"></script>
+
+    @{
+        var JSONartifact = "";
+        if (true) {
+            //(!locals.JSONartifact)
+            //locals.JSONartifact 
+            JSONartifact = "{}";
+        }
+    }
+
+    <script>
+            
+        $(document).ready(function() {
+            if ('@ViewBag.IsProcessing' === 'true') {
+                artifactData = '@JSONartifact';
+                artifactData = JSON.parse(artifactData);
+                ARTI.processArtifactData();
+            }
+                
+            if ('@ViewBag.Page' == 'artifact') {
+                ARTI.artifactPage();               
+            } else if ('@ViewBag.Page' == 'gallery') {
+                ARTI.galleryPage();
+            } else if ('@ViewBag.Page' == 'checkin') {
+                ARTI.checkinPage();
+            }
+                
+        });
+
+        /*
+        var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+        (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+        g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+        s.parentNode.insertBefore(g,s)}(document,'script'));
+        */
+        
+        <!--[if lt IE 7]><script src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js" defer></script><script defer>window.attachEvent('onload', function () { CFInstall.check({ mode: 'overlay' }) })</script><![endif]-->
+    </script>
+</body>
+</html>

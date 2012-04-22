@@ -1,0 +1,17 @@
+﻿<header>
+    <!--//canvas#processing-header(data-processing-sources='/js/processing/header/header.pde')-->
+    <div class="header-inside">
+        <nav class="main-nav hat">
+            <a class="logo lfloat" href="/">
+                <img src="../../Content/img/logo.png" alt="Logo" width="193" height="58" />
+            </a>
+            @Html.Partial("main-nav")
+            <div class="search rfloat">
+                <form action="/search" method="get">
+                    <input type="text" name="username" placeholder="Search Username" />
+                    <button type="submit"></button>
+                </form>
+            </div>
+        </nav>
+    </div>
+</header>
