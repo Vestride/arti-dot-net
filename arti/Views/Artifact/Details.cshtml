@@ -1,0 +1,111 @@
+﻿@model arti.Models.Artifact
+
+<div id="fb-root"></div>
+<script>
+    // Like button
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    } (document, 'script', 'facebook-jssdk'));
+
+    // Tweet button
+    !function (d, s, id) { var js, fjs = d.getElementsByTagName(s)[0]; if (!d.getElementById(id)) { js = d.createElement(s); js.id = id; js.src = "//platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs); } } (document, "script", "twitter-wjs");
+
+    // Plus one button
+    (function () {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+    })();
+</script>
+
+<section class="artifact-details clearfix">
+    <input id="artifact-id" type="hidden" value="@Model.id" />
+    <canvas id="artifact" data-processing-sources="@Url.Content("~/Scripts/Processing/arti/arti.pde") @Url.Content("~/Scripts/Processing/arti/particle.pde")"></canvas
+    ><div class="details">
+        <div class="buttons rfloat">
+            <div id="give-star" class="button button-blue star"><div class="star"></div></div>
+            <a class="button button-black button-back" href="/">Gallery</a>
+            <br />
+            <button class="button button-blue js-replay button-replay rfloat">Replay</button>
+        </div>
+
+        <section class="details-info">
+            <h2>Artifact:&nbsp;<span class="alias">@ViewBag.id</span></h2>
+            @if (Model.owner != "") {
+                <h4 class="created-by">Created by:&nbsp;<a href="/user/@Model.owner">@Model.owner</a></h4>
+            }
+            @if (Model.featured) {
+                <div class="featured-banner ir">Featured</div>
+            }
+            
+            <div>
+                <span class="icon icon-eye"></span>
+                <span>@Model.views</span>
+                <span class="icon icon-star"></span>
+                <span>@Model.stars</span>
+            </div>
+        </section>
+
+        <section class="details-mobile">
+            <h3>Download for Mobile</h3>
+            <div>
+                <a href="@Url.Content("~/Content/artifacts/" + Model.id + "_iphone4.png")">
+                    <figure>
+                        <div class="device iphone">
+                            <img class="preview iphone" src="@Url.Content("~/Content/artifacts/" + Model.id + ".png")" alt="iphone preview" />
+                        </div>
+                        <figcaption>iPhone 4</figcaption>
+                    </figure>
+                </a>
+                <a href="@Url.Content("~/Content/artifacts/" + Model.id + "_ipad.png")">
+                    <figure>
+                        <div class="device ipad">
+                            <img class="preview ipad" src="@Url.Content("~/Content/artifacts/" + Model.id + ".png")" alt="ipad preview" />
+                        </div>
+                        <figcaption>iPad</figcaption>
+                    </figure>
+                </a>
+                <a href="@Url.Content("~/Content/artifacts/" + Model.id + "_android-large.png")">
+                    <figure>
+                        <div class="device android">
+                            <img class="preview android" src="@Url.Content("~/Content/artifacts/" + Model.id + ".png")" alt="android preview" />
+                        </div>
+                        <figcaption>Android</figcaption>
+                    </figure>
+                </a>
+            </div>
+        </section>
+
+        <section class="details-desktop">
+            <h3>Download for Desktop:</h3>
+            <ul class="clearfix">
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1920x1200.png")" data-ratio="16:10">1920 x 1200</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1920x1080.png")" data-ratio="16:9">1920 x 1080</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1680x1050.png")" data-ratio="16:10">1680 x 1050</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1600x900.png")" data-ratio="16:9">1600 x 900</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1440x900.png")" data-ratio="16:10">1440 x 900</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1280x1024.png")" data-ratio="5:4">1280 x 1024</a></li>
+                <li><a class="button hover-button" href="@Url.Content("~/Content/artifacts/" + Model.id + "_1280x800.png")" data-ratio="16:10">1280 x 800</a></li>
+            </ul>
+        </section>
+
+        <section class="details-share">
+            <h3>Share It:</h3>
+            <ul class="ul-inline">
+                <li>
+                    <div class="g-plusone" data-size="medium" data-href="@ViewBag.permalink"></div>
+                </li>
+                <li>
+                    <a class="twitter-share-button" href="https://twitter.com/share" data-text="Check out this artifact" data-via="project_ARTI" data-url="@ViewBag.permalink">Tweet</a>
+                </li>
+                <li>
+                    <div class="fb-like" data-send="false" data-layout="button_count" data-width="90" data-show-faces="false" data-href="@ViewBag.permalink"></div>
+                </li>
+            </ul>
+        </section>
+    </div>
+</section>

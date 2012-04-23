@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.ComponentModel.DataAnnotations;
 
 namespace arti.Models
 {
     public class Artifact
     {
+        //[Key]
         public string id { get; set; }
         public long timestamp { get; set; }
         public int wingspan { get; set; }
@@ -25,5 +27,7 @@ namespace arti.Models
         public int stars { get; set; }
         public bool processed { get; set; }
         public string owner { get; set; }
+
+        public bool featured { get; set; }
     }
 }

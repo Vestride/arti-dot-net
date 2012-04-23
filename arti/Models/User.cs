@@ -7,7 +7,8 @@ namespace arti.Models
 {
     public class User
     {
+        public int id { get; set; }
         public string username { get; set; }
-        public ICollection<Artifact> Artifacts { get; set; }
+        //public ICollection<Artifact> Artifacts { get; set; }
     }
 }

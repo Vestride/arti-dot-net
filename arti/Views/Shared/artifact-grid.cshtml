@@ -1,1 +1,33 @@
-﻿
+﻿@model IEnumerable<arti.Models.Artifact>
+@{
+    foreach (var item in Model)
+    {
+
+        var classes = @item.featured ? "grid-item featured" : "grid-item";
+
+        <div class="@classes">
+            <a href="/artifact/@item.id">
+                <img src="@Url.Content("~/Content/artifacts/" + item.id + ".png")" height="326" width="220" alt="artifact" />
+            </a>
+            <div class="item-details">
+                @if (item.owner != "")
+                {
+                    @*@Html.ActionLink(item.owner, "Index", "User", new { username = item.owner }, new { @class = "alias" });*@
+                    <a class="alias" href="/user/@item.owner">@item.owner</a>
+                }
+                else
+                {
+                    <span class="alias">@item.id</span>
+                }
+                <div class="stats text-right">
+                    <div>
+                        <span class="icon icon-eye"></span>&nbsp;@item.views
+                    </div>
+                    <div>
+                        <span class="icon icon-star"></span>&nbsp;@item.stars
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

@@ -25,6 +25,12 @@ namespace arti
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+                "artifact",
+                "artifact/{id}",
+                new {controller = "Artifact", action = "Details" }
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
@@ -38,6 +44,8 @@ namespace arti
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            // Populate database
             Database.SetInitializer<ArtiContext>(new ArtiInitializer());
         }
     }

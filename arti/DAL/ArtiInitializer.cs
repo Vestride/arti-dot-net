@@ -30,7 +30,8 @@ namespace arti.DAL
                 views = 1,
                 stars = 0,
                 processed = true,
-                owner = "dro"
+                owner = "dro",
+                featured = false
             };
 
             Artifact artifact_5491 = new Artifact
@@ -52,7 +53,8 @@ namespace arti.DAL
                 views = 15,
                 stars = 3,
                 processed = true,
-                owner = "weez"
+                owner = "weez",
+                featured = false
             };
 
             var artifact_1176 = new Artifact
@@ -74,7 +76,8 @@ namespace arti.DAL
                 timestamp = 20120227024040,
                 torso = 458,
                 views = 2,
-                wingspan = 329
+                wingspan = 329,
+                featured = true
             };
 
             var artifacts = new List<Artifact>
@@ -86,26 +89,25 @@ namespace arti.DAL
             artifacts.ForEach(a => context.Artifacts.Add(a));
             context.SaveChanges();
 
-            
-            var users = new List<User>
-            {
-                new User {
-                    username = "dro",
-                    Artifacts = { artifact_5566 }
-                },
+            //var users = new List<User>
+            //{
+            //    new User {
+            //        username = "dro",
+            //        Artifacts = new List<Artifact> { artifact_5566 }
+            //    },
 
-                new User {
-                    username = "weez",
-                    Artifacts = { artifact_5491 }
-                },
+            //    new User {
+            //        username = "weez",
+            //        Artifacts = new List<Artifact> { artifact_5491 }
+            //    },
 
-                new User {
-                    username = "anonymous",
-                    Artifacts = { artifact_1176 }
-                }
-            };
-            users.ForEach(u => context.Users.Add(u));
-            context.SaveChanges();
+            //    new User {
+            //        username = "anonymous",
+            //        Artifacts = new List<Artifact> { artifact_1176 }
+            //    }
+            //};
+            //users.ForEach(u => context.Users.Add(u));
+            //context.SaveChanges();
         }
     }
 }
