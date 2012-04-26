@@ -30,4 +30,9 @@
             </div>
         </div>
     }
+    
+    // Since we can't pass a view's rendered html string easily, we'll do it this way.
+    if (ViewBag.totalArtifacts != null) {
+        <div class="hidden" data-total-artifacts="@ViewBag.totalArtifacts"></div>
+    }
 }
