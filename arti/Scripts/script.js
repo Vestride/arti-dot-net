@@ -59,8 +59,9 @@ var artifactData
 
       processArtifactData: function () {
           artifactData = new Artifact(artifactData);
-          console.log(artifactData);
-          ARTI.readyForProcessing();
+          if (artifactData.hasOwnProperty("id")) {
+              ARTI.readyForProcessing();
+          }
       },
 
       /**
@@ -85,7 +86,7 @@ var artifactData
               }
           }
           localStorage.setItem(key, JSON.stringify(keys));
-          $.get('/Home/' + key, {id: artifactId});
+          $.get('/Home/' + key, { id: artifactId });
           return true;
       },
 

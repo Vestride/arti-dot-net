@@ -23,17 +23,20 @@
     <script>window.jQuery || document.write('<script src="@Url.Content("~/Scripts/Libs/jquery-1.7.2.min.js")"><\\/script>')</script>
         
     <script src="@Url.Content("~/Scripts/Libs/processing-1.3.6.min.js")"></script>
-    <!--script(src='http://cloud.github.com/downloads/processing-js/processing-js/processing-1.3.6.js')-->
-    <!--<script src="/socket.io/socket.io.js"></script>-->
     <script defer src="@Url.Content("~/Scripts/plugins.js")"></script>
     <script defer src="@Url.Content("~/Scripts/script.js")"></script>
+
+    @{
+        bool isProcessing = ViewBag.IsProcessing != null && ViewBag.IsProcessing == true;
+        string isProcessingStr = isProcessing.ToString().ToLower();
+        var jsonArtifact = isProcessing ? Html.Raw(Json.Encode(Model)) : "{}";
+    }
 
     <script>
             
         $(document).ready(function() {
-            if ('@ViewBag.IsProcessing.ToString().ToLower()' === 'true') {
-                artifactData = '@Html.Raw(Json.Encode(Model))';
-                if (artifactData == '') artifactData = '{}';
+            if ('@isProcessingStr' === 'true') {
+                artifactData = '@jsonArtifact';
                 artifactData = JSON.parse(artifactData);
                 ARTI.processArtifactData();
             }

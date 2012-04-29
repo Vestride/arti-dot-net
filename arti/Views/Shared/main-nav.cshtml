@@ -1,14 +1,9 @@
-﻿<ul>
-    <li>
-        <a href="/" class="active">The Gallery</a>
-    </li>
-    <li>
-        <a href="/team">The Team</a>
-    </li>
-    <li>
-        <a href="/idea">The Idea</a>
-    </li>
-    <li>
-        <a href="http://imposters.cias.rit.edu/the-blog">The Blog</a>
-    </li>
+﻿@{
+    string page = ViewBag.Page == null ? "gallery" : ViewBag.Page;
+    string current = "active";
+}
+<ul>
+    <li>@Html.ActionLink("The Gallery", "Index", "Home", null, new { @class = page == "gallery" ? current : "" })</li>
+    <li>@Html.ActionLink("The Team", "Index", "Team", null, new { @class = page == "team" ? current : "" })</li>
+    <li>@Html.ActionLink("The Idea", "Index", "Idea", null, new { @class = page == "idea" ? current : "" })</li>
 </ul>

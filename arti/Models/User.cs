@@ -9,6 +9,6 @@ namespace arti.Models
     {
         public int id { get; set; }
         public string username { get; set; }
-        //public ICollection<Artifact> Artifacts { get; set; }
+        public virtual ICollection<Artifact> Artifacts { get; set; }
     }
 }

@@ -31,6 +31,12 @@ namespace arti
             );
 
             routes.MapRoute(
+                "user",
+                "user/{username}",
+                new { controller = "User", action = "Index" }    
+            );
+
+            routes.MapRoute(
                 "Default", // Route name
                 "{controller}/{action}/{id}", // URL with parameters
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults

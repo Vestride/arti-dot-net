@@ -25,6 +25,8 @@ namespace arti.Controllers
             return View(model);
         }
 
+        //
+        // GET: /Artifact/artifact_1234
         public ActionResult Details(string id)
         {
             var artifact = db.Artifacts.FindById(id);

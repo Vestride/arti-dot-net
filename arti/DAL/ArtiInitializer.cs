@@ -255,24 +255,104 @@ namespace arti.DAL
             artifacts.ForEach(a => context.Artifacts.Add(a));
             context.SaveChanges();
 
-            //var users = new List<User>
-            //{
-            //    new User {
-            //        username = "dro",
-            //        Artifacts = new List<Artifact> { artifact_5566 }
-            //    },
+            var users = new List<User>
+            {
+                new User {
+                    username = "dro",
+                    Artifacts = new List<Artifact> { artifact_5566 }
+                },
 
-            //    new User {
-            //        username = "weez",
-            //        Artifacts = new List<Artifact> { artifact_5491 }
-            //    },
+                new User {
+                    username = "weez",
+                    Artifacts = new List<Artifact> { artifact_5491 }
+                },
 
-            //    new User {
-            //        username = "anonymous",
-            //        Artifacts = new List<Artifact> { artifact_1176 }
-            //    }
-            //};
-            //users.ForEach(u => context.Users.Add(u));
+                new User {
+                    username = "Vestride",
+                    Artifacts = new List<Artifact> { artifact_9483, artifact_9616 }
+                },
+                new User {
+                    username = "nancy",
+                    Artifacts = new List<Artifact> { artifact_6471 }
+                },
+
+                new User {
+                    username = "anonymous",
+                    Artifacts = new List<Artifact> { artifact_1176, artifact_4409, artifact_9972, artifact_8715, artifact_2428 }
+                }
+            };
+            users.ForEach(u => context.Users.Add(u));
+            context.SaveChanges();
+
+            var team = new List<TeamMember>
+            {
+                new TeamMember {
+                    Name = "Glen Cheney",
+                    NiceName = "glen_cheney",
+                    ImposterName = "Concise Imposter",
+                    Role = "Developer",
+                    Skills = new [] { "Front-end", "PHP", "CSS" },
+                    Description = "I&rsquo;m a developer with a passion for the frontend. I enjoy keeping up with new technologies and making the web awesome.",
+                    Username = "Vestride",
+                    Portfolio = "http://glencheney.com"
+                },
+
+                new TeamMember {
+                    Name = "Mike Higham",
+                    NiceName = "mike_higham",
+                    ImposterName = "Command Imposter",
+                    Role = "Developer",
+                    Skills = new [] { "JavaScript, PHP, CSS", "C#, Java", "Communication" },
+                    Description = "I&rsquo;m a web developer with a focus on the bleeding-edge, if it&rsquo;s new and its on the web, I want to be a part of it.",
+                    Username = "happyearmuffs",
+                    Portfolio = "http://michaelhigham.com"
+                },
+
+                new TeamMember {
+                    Name = "Andrew Kiproff",
+                    NiceName = "andrew_kiproff",
+                    ImposterName = "Husky Imposter",
+                    Role = "Developer",
+                    Skills = new [] { "C#", "Front-end, PHP", "Proce55ing" },
+                    Description = "New Media: Interactive Developer with a focus on simple, unique designs and layouts",
+                    Username = "dro",
+                    Portfolio = "http://andrewkiproff.com"
+                },
+
+                new TeamMember {
+                    Name = "Jesse Thoman",
+                    NiceName = "jesse_thoman",
+                    ImposterName = "Bubbly Imposter",
+                    Role = "Designer",
+                    Skills = new [] { "Illustration", "Motion Graphics", "Writing" },
+                    Description = "A designer, illustrator, and writer, with a love for all things film. I have a marketer&rsquo;s mind-set and am always thinking of how projects and products will interact with people.",
+                    Username = "everrae",
+                    Portfolio = "http://jessethoman.com"
+                },
+
+                new TeamMember {
+                    Name = "Jake Gross",
+                    NiceName = "jake_gross",
+                    ImposterName = "Beardy Imposter",
+                    Role = "Designer",
+                    Skills = new [] { "Visual Design", "Interactive Design", "User Experience" },
+                    Description = "I love working with typography, and 2d design, and the web. Making sure that experiences don&rsqou;t stay on the web is something I try to bring to every project. Little things are my speciality, adding to experience of the user.",
+                    Username = "beard",
+                    Portfolio = "http://jakegross.com"
+                },
+
+                new TeamMember {
+                    Name = "Matt Olpinski",
+                    NiceName = "matt_olpinski",
+                    ImposterName = "Polish Imposter",
+                    Role = "Designer",
+                    Skills = new [] { "Interface Design", "Motion Graphics", "Web Design &amp; Development" },
+                    Description = "I&rsquo;m a multi-talented interface designer with a passion for motion graphics and web design. I have a confident personality and a creative mind that allow me to produce top-notch work. I love the details that make good projects great.",
+                    Username = "mattolpinski",
+                    Portfolio = "http://mattolpinski.com"
+                }
+            };
+            //teamMembers.ForEach(member => context.TeamMembers.Add(member));
             //context.SaveChanges();
         }
     }
