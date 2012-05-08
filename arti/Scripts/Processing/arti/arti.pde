@@ -1,210 +1,163 @@
-particle[] Z;
-particle[] K;
-particle[] Q;
-particle[] V;
-boolean tracer = true;
-int depth;
-//float colour = random(1);
-int iterations = 300;
-int cycles = 0;
-int numMoves;
+//import processing.pdf.*;
+
+Layer[] layers;
+
+//JSArtifact artifactData;
+//JSArtifact[] artifacts;
+//int artifactIndex = 0;
+
+Palette palette;
+
+color[] colors;
 
 void setup() {
   noLoop();
-  size(520, 770, P2D);
+  size(520, 770);
+  smooth();
   background(0);
+  frameRate(300);
+  noFill();
+  colorMode(RGB, 255, 255, 255, 100);
+
+  palette = new Palette();
+
+  // Matt's data
+  //JSArtifact matt = new JSArtifact("artifact_2039", true, /*lhandX*/ 269.9736, /*lhandY*/ 319.9051, /*rhandX*/ 366.1822, /*rhandY*/ 411.843, /*wingspan*/ 661, /*leg*/ 563, /*arm*/ 185, /*head*/ 214, /*torso*/ 286, /*height*/ 276, /*bbox*/ 560, /*frame*/ 0);
+  //JSArtifact weez = new JSArtifact("artifact_5491", true, /*lhandX*/ 271.3583, /*lhandY*/ 188.4483, /*rhandX*/ 355.6494, /*rhandY*/ 193.562, /*wingspan*/ 550, /*leg*/ 491, /*arm*/ 154, /*head*/ 228, /*torso*/ 295, /*height*/ 254, /*bbox*/ 560, /*frame*/ 0);
+  //JSArtifact jess = new JSArtifact("artifact_5491", true, /*lhandX*/ 148.8705, /*lhandY*/ 231.7685, /*rhandX*/ 554.1658, /*rhandY*/ 134.062, /*wingspan*/ 465, /*leg*/ 558, /*arm*/ 176, /*head*/ 160, /*torso*/ 230, /*height*/ 285, /*bbox*/ 482, /*frame*/ 0);
+  
+//  artifacts = new JSArtifact[] { 
+//    matt,
+//    weez,
+//    jess
+//  };
+//  
+//  artifactData = artifacts[artifactIndex];
+//
+//  ready();
+  //  ruler
+  //  stroke(255);
+  //  line(260, 0, 260, height);
 }
 
+
 void ready() {
-  console.log("Processing > ready()");
-  Z = new particle[artifactData.wingspan/20];
-  K = new particle[artifactData.wingspan/10];
-  Q = new particle[artifactData.wingspan/20];
-  V = new particle[artifactData.wingspan/10];
-  smooth();
-  noLoop();
-  depth = width;
-  colorMode(HSB, 360, 100, 100, 1);
-  colors = new color[5];
-  
-  //console.log("Z: " + Z + ", K: " + K + ", depth: " + depth);
-  artsakh = new color[5];
-  artsakh[0] = color(216, 52, 17);//darkest
-  artsakh[1] = color(190, 38, 25, .5);
-  artsakh[2] = color(87, 32, 54, .5);
-  artsakh[3] = color(151, 28, 36, 1);//base
-  artsakh[4] = color(52, 50, 80, .5);//lightest
 
-sandy = new color[5];
-sandy[0] = color(163, 11, 87);
-sandy[1] = color(193, 33, 85, .5);
-sandy[2] = color(36, 37, 95, .5);
-sandy[3] = color(16, 56, 85, 1);
-sandy[4] = color(12, 72, 92, .5);
 
-royalwe = new color[5];
-royalwe[0] = color(22, 62, 91);
-royalwe[1] = color(11, 63, 83, .5);
-royalwe[2] = color(6, 65, 74, .5);
-royalwe[3] = color(348, 60, 61, 1);
-royalwe[4] = color(312, 58, 44, .5);
-  frameRate(25);
+  int distBtwnHands = round(dist(artifactData.lhandX, artifactData.lhandY, artifactData.rhandX, artifactData.rhandY));
+
+  // -------------------------------------Recording PDF
+
+  //beginRecord(PDF, "scheme-03.pdf");
+  //println("ARTI > recording...");
+
+  // -------------------------------------First layer
+
+  int liness = artifactData.wingspan / 15;
+  int spacing = artifactData.arm / 20;
+  int pointss = artifactData.torso / 10;
+  float padding = 0;
+  int y1 = artifactData.head / 5;
+  int cy = round(artifactData.leg / 5);
+  int y2 = artifactData.height;
+  boolean gravity = true;
+  int shadowAmount = 12;
+  boolean inverse = distBtwnHands > 150;
+  Layer layer_one = new Layer(liness, spacing, pointss, padding, y1, cy, y2, gravity, shadowAmount, inverse);
+
+
+  // -------------------------------------Second layer
+
+  liness = artifactData.wingspan/15;
+  spacing = artifactData.arm / 15;
+  pointss = artifactData.torso / 10;
+  padding = 0;
+  y1 = (artifactData.height);
+  cy = round(artifactData.leg / 1.5);
+  y2 = round(artifactData.height * 2.5);
+  gravity = false;
+  inverse = false;
+  shadowAmount = 6;
+  Layer layer_two = new Layer(liness, spacing, pointss, padding, y1, cy, y2, gravity, shadowAmount + 10, inverse);
+
+
+  // -------------------------------------2.5 layer
   
-  numMoves = ceil(abs(artifactData.bbox/10));
-  console.log(numMoves);
-  float n = 100;
-  float px, py, pz;
-  float m, v, theta, phi;
+  y1 = round(artifactData.height * .75);
+  cy = round(artifactData.height * 1.5);
+  y2 = round(artifactData.height * 2.25);
+  Layer layer_two5 = new Layer(liness, spacing + 3, pointss, .4, y1, cy, y2, gravity, shadowAmount, inverse);
+
+  // -------------------------------------Third layer
+
+  liness = artifactData.leg / 12;
+  spacing = artifactData.arm / 14;
+  pointss = artifactData.torso / 15;
+  padding = 1 - float(artifactData.leg / 10) / float(artifactData.wingspan);
+  y1 = round(artifactData.head / 5);
+  cy = round(artifactData.leg / 1.5);
+  y2 = round(height - artifactData.height * .25);
+  gravity = true;
+  inverse = false;
+  shadowAmount = 1;
+  Layer layer_three = new Layer(liness, spacing, pointss, padding, y1, cy, y2, gravity, shadowAmount + 10, inverse);
+
+
+
+  // -------------------------------------Fourth layer - mah showda pads
   
-  for(int k = 0; k < n; k++) {
-    px = random(width);
-    py = random(height);
-    pz = random(depth);
-    m = random(50);
-    
-    
-    for (int i = int((Z.length)*k/n); i < int((Z.length)*(k+1)/n); i++) {
-      v = sq(random(sqrt(m)));
-      theta = random(TWO_PI);
-      phi = random(TWO_PI);
-      //console.log(artifactData.wingspan);
-    float r = (600/(i+1))*((k+1)/10000);
-      //console.log(r);
-        if ( r < 0.5 ) {
-          Z[i]= new particle( (1-2*r)*width, 2*r*height + artifactData.head, 2*r*depth, 0, 0, 0, 1 );
-          K[i]= new particle( (width-(1-2*r)*width), 2*r*height + artifactData.head, 2*r*depth, 0, 0, 0, 1 );
-          Q[i]= new particle( (1-2*r)*width, 2*r*height, 2*r*depth, 0, 0, 0, 1 );
-          V[i]= new particle( (width-((1-2*r)*width)), 2*r*height, 2*r*depth, 0, 0, 0, 1 );
-        }
-        else {
-          Z[i]= new particle( (1-(2*r-1))*width, (1-(2*r-1))*height, (2*r-1)*depth, 0, 0, 0, 1 );
-          K[i]= new particle( (width-(1-(2*r-1))*width), (1-(2*r-1))*height, (2*r-1)*depth, 0, 0, 0, 1 );
-          Q[i]= new particle( (1-(2*r-1))*width + artifactData.head, (1-(2*r-1))*height, (2*r-1)*depth, 0, 0, 0, 1 );
-          V[i]= new particle( (width-((1-(2*r-1))*width + artifactData.head)), (1-(2*r-1))*height, (2*r-1)*depth, 0, 0, 0, 1 );
-        }
-    }
-  }
-  frameRate(60);
+  liness = 40;
+  spacing = 10;
+  pointss = 30;
+  padding = 1 - float(artifactData.arm) / float(artifactData.wingspan);
+  y1 = round((artifactData.height - (artifactData.head / 5)) * .875);
+  cy = round((artifactData.height - (artifactData.head / 5)));
+  y2 = round(artifactData.height * 2.5);
+  gravity = false;
+  shadowAmount = 6;
+  Layer layer_four = new Layer(liness, spacing, pointss, padding, y1, cy, y2, gravity, shadowAmount, inverse);
+
+  // -------------------------------------Fifth layer - mah nee pads
+  
+  liness = 40;
+  spacing = 10;
+  pointss = distBtwnHands / 10;
+  padding = 1 - float(artifactData.arm) / float(artifactData.wingspan);
+  y1 = round(height - artifactData.height * .95);
+  cy = round(height - artifactData.height * .35);
+  y2 = round(height - artifactData.height * .05);
+  gravity = false;
+  shadowAmount = 8;
+  Layer layer_five = new Layer(liness, spacing, pointss, padding, y1, cy, y2, gravity, shadowAmount, inverse);
+
+  // -------------------------------------Add new layers to our layers array
+
+  layers = new Layer[] { 
+    layer_one,
+    layer_two,
+    layer_two5,
+    layer_three,
+    layer_four,
+    layer_five
+  };
+
+  // -------------------------------------Update the color palette
+
+  //getPalette(int (random(340, 680)));
+  getPalette(artifactData.wingspan);
+
+  // -------------------------------------Let's go!
+
   loop();
 }
 
-void replay() {
-  background(0);
-  iterations = 300;
-  ready();
-}
-
-void draw() {
-  //println("drawing");
-  if (artifactData == null) {
+void draw() {  
+  if (artifactData == null || layers == null) {
     return;
   }
-    if (iterations > 0) {
-      render(); 
-      iterations--;
-    }else{
-    
-    }
-  
-}
 
-void render(){
-  colorMode(RGB, 255, 255, 255, 100);
-  float r;
-  
-  if(cycles == 0){
-    if ( !tracer ) {
-      background(255);
-    }
-  }
-  //console.log(numMoves);
-  for (int i = 0; i < Z.length; i++) {
-//    if ( Z[i].magnitude > 0.1 ) {
-//        stroke(255);
-//    }
-//    else {
-//    }
-    
-    //console.log(iterations+ ">"+ceil(400/numMoves));
-    if (iterations%numMoves < 5) {
-       //console.log("less than 5");
-       Z[i].gravitate( new particle( artifactData.rhandX, artifactData.rhandY, depth/2, 0, 0, 0, 0.75 ) );
-       K[i].gravitate( new particle( width-artifactData.rhandX, artifactData.rhandY, depth/2, 0, 0, 0, 0.75 ) );
-       Q[i].gravitate( new particle( artifactData.lhandX, artifactData.lhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-       V[i].gravitate( new particle( width-artifactData.lhandX, artifactData.lhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-    }else if (iterations%numMoves < 15) {
-       //console.log("less than 15");
-       Z[i].gravitate( new particle( tan(artifactData.lhandX), artifactData.lhandY, depth/2, 0, 0, 0, 0.75 ) );
-       K[i].gravitate( new particle( width-tan(artifactData.lhandX), artifactData.lhandY, depth/2, 0, 0, 0, 0.75 ) );
-       Q[i].gravitate( new particle( artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-       V[i].gravitate( new particle( width-artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-    }else if(iterations%numMoves < 35){
-       //console.log("less than 35");
-       Z[i].repel( new particle( cos(artifactData.lhandX), artifactData.lhandY, depth/2, 0, 0, 0, 0.75 ) );
-       K[i].repel( new particle( width-cos(artifactData.lhandX), artifactData.lhandY, depth/2, 0, 0, 0, 0.75 ) );
-       Q[i].repel( new particle( artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-       V[i].repel( new particle( width-artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-    }else if(iterations%numMoves < 60){
-      //console.log("less than 60");
-      Z[i].gravitate( new particle(sin(artifactData.head), artifactData.height, depth/2, 0, 0, 0, 0.75 ) );
-       K[i].gravitate( new particle( width-sin(artifactData.head), artifactData.height, depth/2, 0, 0, 0, 0.75 ) );
-       Q[i].gravitate( new particle( artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-       V[i].gravitate( new particle( width-artifactData.rhandX, artifactData.rhandY+artifactData.torso, depth/2, 0, 0, 0, 0.75 ) );
-    }
-    else {
-      Z[i].deteriorate();
-      K[i].deteriorate();
-      Q[i].deteriorate();
-      V[i].deteriorate();
-    }
-
-    Z[i].update();
-    K[i].update();
-    Q[i].update();
-    V[i].update();
-
-    colorMode(HSB, 360, 100, 100, 1);
-
-    //stroke(40);
-   //colorMode(HSB,1);
-  
-   fill(royalwe[0]);
-    Z[i].display();
-   fill(royalwe[1]);
-    K[i].display();
-   fill(royalwe[2]);
-    Q[i].display();
-   fill(royalwe[3]);
-    V[i].display();
-
-    r = float(i)/Z.length;
-    //dividing the magnitude increases the threshold for color. higher the threshold, less white or black and more color
-//    if ( Z[i].magnitude > 0.1 ) {
-//        stroke(255);
-//        background(0,.5);
-//    }
-//    else {
-//    }
-      //stroke(40);
-      if(i != Z.length - 1){
-        //stroke(255);
-           line(Z[i].x, Z[i].y, Z[i+1].x, Z[i+1].y);
-           line(K[i].x, K[i].y, K[i+1].x, K[i+1].y);
-      }
-  }
-}
-void mousePressed() {
-  if (mouseButton == RIGHT) {
-    noLoop();
-  } 
-  else {
-    loop();
+  for (int i = 0; i < layers.length; i++) {
+    layers[i].render();
   }
 }
 
-void keyPressed() {
-
-  if ( key == ENTER ) {
-    tracer = !tracer;
-  }
-}

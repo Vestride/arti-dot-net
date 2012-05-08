@@ -35,20 +35,8 @@
     <script>
             
         $(document).ready(function() {
-            if ('@isProcessingStr' === 'true') {
-                artifactData = '@jsonArtifact';
-                artifactData = JSON.parse(artifactData);
-                ARTI.processArtifactData();
-            }
-                
-            if ('@ViewBag.Page' == 'artifact') {
-                ARTI.artifactPage();               
-            } else if ('@ViewBag.Page' == 'gallery') {
-                ARTI.galleryPage();
-            } else if ('@ViewBag.Page' == 'checkin') {
-                ARTI.checkinPage();
-            }
-                
+            artifactData = '@jsonArtifact';
+            ARTI.init('@ViewBag.Page', '@isProcessingStr');   
         });
 
         /*

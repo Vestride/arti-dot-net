@@ -349,7 +349,7 @@ header .search button {
     cursor: pointer;
     border: 0;
     padding: 0;
-    background: transparent url('../img/icons.png') no-repeat 0 0;
+    background: transparent url(../img/icons.png) no-repeat 0 0;
     width: 16px;
     height: 16px;
 }
@@ -618,7 +618,9 @@ h3.rfloat:before { content: none; }
 /*=============================================*\
  $Artifact
 \*=============================================*/
-
+.artifact-details .artifact {
+    display: none;
+}
 .artifact-details .details {
     width: 380px;
     margin-left: 40px;
@@ -681,7 +683,7 @@ h3.rfloat:before { content: none; }
 .details-mobile figure .device {
     position: relative;
     z-index: 2;
-    background-image: url('../img/device-sprite.png');
+    background-image: url(../img/device-sprite.png);
     margin: auto;
 }
 
@@ -1102,7 +1104,7 @@ a.button:hover {
     right: 22px;
     width: 19px;
     height: 9px;
-    background: url('../img/icons.png') no-repeat -104px -4px;
+    background: url(../img/icons.png) no-repeat -104px -4px;
 }
 
 .button-fwd:hover:before {
@@ -1116,7 +1118,7 @@ a.button:hover {
     left: 18px;
     width: 19px;
     height: 9px;
-    background-image: url('../img/icons.png');
+    background-image: url(../img/icons.png);
     background-repeat: no-repeat;
     background-position: -74px -5px;
 }
@@ -1458,6 +1460,7 @@ a.button:hover {
     color: #323232;
     text-align: center;
     font-weight: 700;
+    z-index: 1;
 }
 .modal-header h3:before {
     content: none;
@@ -1493,6 +1496,7 @@ a.button:hover {
     margin-top: 2px;
     cursor: pointer;
     z-index: 2;
+    position: relative;
 }
 .close {
     float: right;
@@ -1610,7 +1614,7 @@ a.button:hover {
 }
 
 .icon {
-    background-image: url('../img/icons.png');
+    background-image: url(../img/icons.png);
     background-repeat: no-repeat;
     display: inline-block;
     margin-right: 5px;
@@ -1724,7 +1728,7 @@ a.button:hover {
     }
     
     .artifact-details .artifact {
-        display: block;
+        display: none;
         margin: auto;
         width: auto;
     }
@@ -1978,7 +1982,12 @@ a.button:hover {
      * Artifact
     \******************************/
     
+    #artifact {
+        display: none;
+    }
+
     .artifact-details .artifact {
+        display: block;
         max-width: 100%;
     }
     
