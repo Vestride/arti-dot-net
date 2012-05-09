@@ -1,1 +1,36 @@
-﻿
+﻿@model IEnumerable<arti.Models.TeamMember>
+
+<h1>The Lochness Imposters</h1>
+
+<section class="team-members clearfix">
+    @{
+        foreach (var member in Model) {
+            <div class="member">
+                <div class="member-artifact">
+                    <a href="@member.Portfolio" target="_blank">
+                        <img src="@Url.Content("~/Content/img/team/" + member.NiceName + ".jpg")" width="220" height="326" alt="@member.Name" />
+                    </a>
+                </div>
+                <div class="member-details">
+                    <h3 class="member-name">@member.Name</h3>
+                    <h4 class="rfloat"><a class="portfolio-link" href="@member.Portfolio" target="_blank">Portfolio</a></h4>
+                    <h4>@member.Role</h4>
+                    @if (member.Skills != null)
+                    {
+                    <div class="member-skills">
+                        Skills
+                        <ul>
+                            @foreach (var skill in member.Skills)
+                            {
+                                <li>@skill</li>
+                            }
+                        </ul>
+                    </div>
+                    }
+                    <p class="member-description">@Html.Raw(@member.Description)</p>
+                    <a class="member-artifact-link" href="/user/@member.Username">View @member.Name&rsquo;s artifacts</a>
+                </div>
+            </div>
+        }
+    }
+</section>

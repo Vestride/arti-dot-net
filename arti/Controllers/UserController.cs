@@ -15,10 +15,17 @@ namespace arti.Controllers
     {
         private ArtiContext db = new ArtiContext();
 
-        public ViewResult Index(string username)
+        public ActionResult Index(string username)
         {
             User user = db.Users.FindByUsername(username);
-            return View(user);
+            if (user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                return RedirectToAction("NotFound", "Search", new { username = username });
+            }
         }
     }
 }

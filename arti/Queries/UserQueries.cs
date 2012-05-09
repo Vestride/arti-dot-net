@@ -13,7 +13,7 @@ namespace arti.Queries
             User user = null;
             try
             {
-                user = users.Single(u => u.username == username);
+                user = users.SingleOrDefault(u => u.username == username);
             }
             catch (InvalidOperationException e)
             {

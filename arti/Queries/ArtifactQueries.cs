@@ -9,7 +9,7 @@ namespace arti.Queries
     public static class ArtifactQueries
     {
         public static Artifact FindById(this IQueryable<Artifact> artifacts, string id) {
-            return artifacts.Single(a => a.id == id);
+            return artifacts.SingleOrDefault(a => a.id == id);
         }
 
         public static IEnumerable<Artifact> GetRecent(this IQueryable<Artifact> artifacts, int start = 0, int stop = 7)

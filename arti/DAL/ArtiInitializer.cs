@@ -284,14 +284,16 @@ namespace arti.DAL
             users.ForEach(u => context.Users.Add(u));
             context.SaveChanges();
 
-            var team = new List<TeamMember>
+            string[] glenSkills = { "Front-end", "PHP", "CSS" };
+
+            var teamMembers = new List<TeamMember>
             {
                 new TeamMember {
                     Name = "Glen Cheney",
                     NiceName = "glen_cheney",
                     ImposterName = "Concise Imposter",
                     Role = "Developer",
-                    Skills = new [] { "Front-end", "PHP", "CSS" },
+                    Skills = glenSkills,
                     Description = "I&rsquo;m a developer with a passion for the frontend. I enjoy keeping up with new technologies and making the web awesome.",
                     Username = "Vestride",
                     Portfolio = "http://glencheney.com"
@@ -302,7 +304,7 @@ namespace arti.DAL
                     NiceName = "mike_higham",
                     ImposterName = "Command Imposter",
                     Role = "Developer",
-                    Skills = new [] { "JavaScript, PHP, CSS", "C#, Java", "Communication" },
+                    Skills = new string[3] { "JavaScript, PHP, CSS", "C#, Java", "Communication" },
                     Description = "I&rsquo;m a web developer with a focus on the bleeding-edge, if it&rsquo;s new and its on the web, I want to be a part of it.",
                     Username = "happyearmuffs",
                     Portfolio = "http://michaelhigham.com"
@@ -313,7 +315,7 @@ namespace arti.DAL
                     NiceName = "andrew_kiproff",
                     ImposterName = "Husky Imposter",
                     Role = "Developer",
-                    Skills = new [] { "C#", "Front-end, PHP", "Proce55ing" },
+                    Skills = new string[] { "C#", "Front-end, PHP", "Proce55ing" },
                     Description = "New Media: Interactive Developer with a focus on simple, unique designs and layouts",
                     Username = "dro",
                     Portfolio = "http://andrewkiproff.com"
@@ -352,8 +354,8 @@ namespace arti.DAL
                     Portfolio = "http://mattolpinski.com"
                 }
             };
-            //teamMembers.ForEach(member => context.TeamMembers.Add(member));
-            //context.SaveChanges();
+            teamMembers.ForEach(member => context.TeamMembers.Add(member));
+            context.SaveChanges();
         }
     }
 }

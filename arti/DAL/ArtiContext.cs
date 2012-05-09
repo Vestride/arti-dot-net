@@ -12,6 +12,6 @@ namespace arti.DAL
     {
         public DbSet<Artifact> Artifacts { get; set; }
         public DbSet<User> Users { get; set; }
-
+        public DbSet<TeamMember> TeamMembers { get; set; }
     }
 }

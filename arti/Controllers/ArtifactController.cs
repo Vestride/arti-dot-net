@@ -30,6 +30,12 @@ namespace arti.Controllers
         public ActionResult Details(string id)
         {
             var artifact = db.Artifacts.FindById(id);
+
+            if (artifact == null)
+            {
+                return RedirectToAction("Index", "Message", new { message = "Sorry, we&rsquo;re bad architects, we couldn&rsquo;t find your artifact (" + id + ")" });
+            }
+
             var req = this.Request;
             ViewBag.Page = "artifact";
             ViewBag.IsProcessing = true;
