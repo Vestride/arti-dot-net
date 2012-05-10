@@ -941,6 +941,18 @@ form .available {
     margin-top: 20px;
 }
 
+/** 404 */
+.frown {
+    display: inline-block;
+    tranform: rotate(90deg);
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    margin-left: 10px;
+}
+.404 h3 { margin: 10px 0; }
+.404 h3:before { content: none; }
 
 
 

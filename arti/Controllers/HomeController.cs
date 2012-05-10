@@ -65,5 +65,23 @@ namespace arti.Controllers
             db.Artifacts.FindById(id).stars += 1;
             return db.SaveChanges() > 0;
         }
+
+        // Common things //
+
+        // User not found
+        public ActionResult UserNotFound(string username)
+        {
+            ViewBag.title = username + " not found!";
+            ViewBag.Username = username;
+            return View();
+        }
+
+        // Just a message
+        public ActionResult Message(string message)
+        {
+            ViewBag.title = "We&rsquo;ve got a message for you";
+            ViewBag.Message = message;
+            return View();
+        }
     }
 }

@@ -20,11 +20,12 @@ namespace arti.Controllers
             User user = db.Users.FindByUsername(username);
             if (user != null)
             {
+                ViewBag.title = user.username;
                 return View(user);
             }
             else
             {
-                return RedirectToAction("NotFound", "Search", new { username = username });
+                return RedirectToAction("UserNotFound", "Home", new { username = username });
             }
         }
     }

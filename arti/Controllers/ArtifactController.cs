@@ -16,16 +16,6 @@ namespace arti.Controllers
         private ArtiContext db = new ArtiContext();
 
         //
-        // GET: /Artifact/
-
-        public ViewResult Index()
-        {
-            var model = db.Artifacts;
-
-            return View(model);
-        }
-
-        //
         // GET: /Artifact/artifact_1234
         public ActionResult Details(string id)
         {
@@ -33,17 +23,17 @@ namespace arti.Controllers
 
             if (artifact == null)
             {
-                return RedirectToAction("Index", "Message", new { message = "Sorry, we&rsquo;re bad architects, we couldn&rsquo;t find your artifact (" + id + ")" });
+                return RedirectToAction("Message", "Home", new { message = "Sorry, we&rsquo;re bad architects, we couldn&rsquo;t find your artifact (" + id + ")" });
             }
 
             var req = this.Request;
             ViewBag.Page = "artifact";
             ViewBag.IsProcessing = true;
             ViewBag.permalink = req.Url.ToString();
-            ViewBag.title = new HtmlString(artifact.owner != "" ? artifact.owner + "&rsquo;s Artifact - " + artifact.id : artifact.id);
+            ViewBag.title = new HtmlString(artifact.owner != "" ? artifact.owner + "&rsquo;s Artifact - " + artifact.id : artifact.id).ToString();
             ViewBag.id = artifact.id.Split('_')[1];
-            ViewBag.description = new HtmlString("Check out " + artifact.owner + "&rsquo;s artifact: " + artifact.id + " from A.R.T.I.");
-            ViewBag.image = req.Url.Scheme + req.Url.Authority + "/artifacts/" + artifact.id + ".png";
+            ViewBag.description = new HtmlString("Check out " + artifact.owner + "&rsquo;s artifact: " + artifact.id + " from A.R.T.I.").ToString();
+            ViewBag.image = req.Url.Scheme + "://" + req.Url.Authority + "/artifacts/" + artifact.id + ".png";
 
             return View(artifact);
         }

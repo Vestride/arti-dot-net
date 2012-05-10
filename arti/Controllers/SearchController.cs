@@ -21,7 +21,7 @@ namespace arti.Controllers
             User user = db.Users.FindByUsername(username);
             if (user == null)
             {
-                return RedirectToAction("NotFound", new { username = username });
+                return RedirectToAction("UserNotFound", "Home", new { username = username });
             }
             else
             {
@@ -30,11 +30,6 @@ namespace arti.Controllers
             }
         }
 
-        public ActionResult NotFound(string username)
-        {
-            ViewBag.Username = username;
-            return View();
-        }
 
     }
 }
